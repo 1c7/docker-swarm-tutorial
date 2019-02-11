@@ -9,14 +9,14 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
   web:
-    image: c1c7c.azurecr.io/c1c7c/myapp:v1
+    image: c1c7c.azurecr.io/c1c7c/myapp:v2
     environment:
       - RAILS_ENV=development
-    deploy:
-      replicas: 3
-      update_config:
-        parallelism: 1
-        delay: 10s
+    # deploy:
+    #   replicas: 3
+    #   update_config:
+    #     parallelism: 1
+    #     delay: 10s
       # restart_policy:
       #   condition: on-failure
       #   delay: 5s
