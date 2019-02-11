@@ -9,9 +9,9 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
   web:
-    image: my-app:v1
+    image: c1c7c.azurecr.io/c1c7c/myapp:v1
     environment:
-      - RAILS_ENV=production
+      - RAILS_ENV=development
     deploy:
       replicas: 3
       update_config:
