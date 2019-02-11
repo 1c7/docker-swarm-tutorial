@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  db:
+    image: registry.hub.docker.com/library/postgres:11.1
+    volumes:
+      # make sure directory exist by running: mkdir -p /var/www/db/
+      - /var/www/db/:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+  web:
+    image: my-app:v1
+    environment:
+      - RAILS_ENV=production
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
