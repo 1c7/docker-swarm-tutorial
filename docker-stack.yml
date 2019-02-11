@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
   web:
-    image: c1c7c.azurecr.io/c1c7c/myapp:v1
+    image: c1c7c.azurecr.io/c1c7c/myapp:v2
     environment:
       - RAILS_ENV=development
     deploy:
